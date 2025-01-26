@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            background-color: #FEF9FF; /* Light pink background */
+            background-image: url('your-background.jpg'); /* Placeholder for a background image */
+            background-size: cover;
+            background-position: center;
+        }
+        #mainMessage {
+            display: none;
+            font-family: 'Lobster', cursive; /* Cute font for main message */
+            color: #FFA3E0; /* Light pink color for text */
+            font-size: 2em;
+            margin-top: 20vh;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #91A7FF; /* Light blue color */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+        #finalMessage {
+            font-size: 3em;
+            color: #FFB2F5; /* Pink shade */
+            display: none;
+        }
+        #replayButton {
+            display: none;
+        }
+        #videoElement, #noImage {
+            display: none;
+            width: 80%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainMessage">Hey, it's your special day!</div>
+    <button id="startButton" onclick="startSurprise()">Start Celebration</button>
+    <div id="confirmation">
+        <p>Do you want to see what I made for you?</p>
+        <button onclick="yesClicked()">Yes</button>
+        <button onclick="noClicked()">No</button>
+    </div>
+    <video id="videoElement" controls onended="videoEnded()">
+        <source src="birthday-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <img id="noImage" src="no-thank-you.jpg" alt="Maybe next time">
+    <div id="finalMessage">Happy Birthday!</div>
+    <button id="replayButton" onclick="replay()">Replay</button>
+
+    <script>
+        function startSurprise() {
+            document.getElementById('startButton').style.display = 'none';
+            document.getElementById('mainMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('mainMessage').style.display = 'none';
+                document.getElementById('confirmation').style.display = 'block';
+            }, 2000);
+        }
+
+        function yesClicked() {
+            document.getElementById('confirmation').style.display = 'none';
+            document.getElementById('videoElement').style.display = 'block';
+        }
+
+        function noClicked() {
+            document.getElementById('confirmation').style.display = 'none';
+            document.getElementById('noImage').style.display = 'block';
+        }
+
+        function videoEnded() {
+            document.getElementById('videoElement').style.display = 'none';
+            document.getElementById('finalMessage').style.display = 'block';
+            document.getElementById('replayButton').style.display = 'block';
+        }
+
+        function replay() {
+            document.getElementById('videoElement').style.display = 'block';
+            document.getElementById('finalMessage').style.display = 'none';
+            document.getElementById('replayButton').style.display = 'none';
+            document.getElementById('videoElement').play();
+        }
+    </script>
+</body>
+</html>
