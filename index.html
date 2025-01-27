@@ -1,100 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            text-align: center;
-            background-color: #FEF9FF; /* Light pink background */
-            background-image: url('your-background.jpg'); /* Placeholder for a background image */
-            background-size: cover;
-            background-position: center;
-        }
-        #mainMessage {
-            display: none;
-            font-family: 'Lobster', cursive; /* Cute font for main message */
-            color: #FFA3E0; /* Light pink color for text */
-            font-size: 2em;
-            margin-top: 20vh;
-        }
-        button {
-            padding: 15px 30px;
-            font-size: 20px;
-            background-color: #91A7FF; /* Light blue color */
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            margin-top: 50px;
-        }
-        #finalMessage {
-            font-size: 3em;
-            color: #FFB2F5; /* Pink shade */
-            display: none;
-        }
-        #replayButton {
-            display: none;
-        }
-        #videoElement, #noImage {
-            display: none;
-            width: 80%;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday!</title>
+  
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;700&display=swap">
+
+  <style>
+    /* Root styling for body */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #fef9ff; /* Light pink background */
+      background-image: url('your-background-image.jpg'); /* Optional: Replace with your own background image */
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* A flex container to center everything vertically & horizontally */
+    #celebrationContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh; /* Ensures it takes full viewport height */
+      text-align: center;
+      position: relative; /* Helps with absolute positioning if needed */
+    }
+
+    /* Hide elements initially */
+    #mainMessage,
+    #confirmation,
+    #videoElement,
+    #noImage,
+    #finalMessage,
+    #replayButton {
+      display: none;
+    }
+
+    /* Start button styling */
+    #startButton {
+      padding: 15px 30px;
+      font-size: 20px;
+      background-color: #91A7FF; /* Light blue color */
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      animation: fadeIn 1.5s forwards;
+      font-family: 'Lobster', cursive;
+    }
+
+    /* Main message styling & animation */
+    #mainMessage {
+      font-family: 'Lobster', cursive;
+      color: #ffa3e0; /* Light pink text */
+      font-size: 2.5em;
+      margin: 20px;
+      animation: floatIn 1s ease-out forwards;
+    }
+
+    /* Confirmation box styling & bounce animation */
+    #confirmation {
+      animation: bounceIn 1s ease-out forwards;
+    }
+    #confirmation p {
+      font-size: 1.3em;
+      margin: 10px 0;
+    }
+    #confirmation button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin: 10px;
+      background-color: #91A7FF;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* Video and image styling with a fade-in animation */
+    #videoElement,
+    #noImage {
+      width: 80%;
+      max-width: 600px;
+      animation: fadeIn 1s forwards;
+      margin-top: 20px;
+      border: 3px solid #ffa3e0;
+      border-radius: 8px;
+    }
+
+    /* Final Happy Birthday message */
+    #finalMessage {
+      font-size: 3em;
+      color: #ff6fd8; /* A brighter pink shade */
+      font-family: 'Lobster', cursive;
+      animation: fadeIn 1s forwards;
+      margin: 20px 0;
+    }
+
+    /* Replay button styling */
+    #replayButton {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #91A7FF;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      animation: fadeIn 1s forwards;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes floatIn {
+      0% {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="mainMessage">Hey, it's your special day!</div>
+  <div id="celebrationContainer">
+    <!-- Start Celebration Button -->
     <button id="startButton" onclick="startSurprise()">Start Celebration</button>
-    <div id="confirmation">
-        <p>Do you want to see what I made for you?</p>
-        <button onclick="yesClicked()">Yes</button>
-        <button onclick="noClicked()">No</button>
+    
+    <!-- Main Message -->
+    <div id="mainMessage">
+      Hey, it's your special day!
     </div>
+    
+    <!-- Confirmation Section -->
+    <div id="confirmation">
+      <p>Do you want to see what I made for you?</p>
+      <button onclick="yesClicked()">Yes</button>
+      <button onclick="noClicked()">No</button>
+    </div>
+    
+    <!-- Video Element (Shown if "Yes") -->
     <video id="videoElement" controls onended="videoEnded()">
-        <source src="birthday-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+      <source src="birthday-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
-    <img id="noImage" src="no-thank-you.jpg" alt="Maybe next time">
+    
+    <!-- Fallback Image (Shown if "No") -->
+    <img id="noImage" src="fallback-image.jpg" alt="Maybe next time" />
+    
+    <!-- Final Message and Replay -->
     <div id="finalMessage">Happy Birthday!</div>
     <button id="replayButton" onclick="replay()">Replay</button>
+  </div>
 
-    <script>
-        function startSurprise() {
-            document.getElementById('startButton').style.display = 'none';
-            document.getElementById('mainMessage').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('mainMessage').style.display = 'none';
-                document.getElementById('confirmation').style.display = 'block';
-            }, 2000);
-        }
+  <script>
+    function startSurprise() {
+      // Hide the start button
+      document.getElementById('startButton').style.display = 'none';
+      
+      // Show the main message (it already has an animation)
+      document.getElementById('mainMessage').style.display = 'block';
 
-        function yesClicked() {
-            document.getElementById('confirmation').style.display = 'none';
-            document.getElementById('videoElement').style.display = 'block';
-        }
+      // After 2 seconds, hide mainMessage and show confirmation
+      setTimeout(() => {
+        document.getElementById('mainMessage').style.display = 'none';
+        document.getElementById('confirmation').style.display = 'block';
+      }, 2000);
+    }
 
-        function noClicked() {
-            document.getElementById('confirmation').style.display = 'none';
-            document.getElementById('noImage').style.display = 'block';
-        }
+    function yesClicked() {
+      // Hide confirmation
+      document.getElementById('confirmation').style.display = 'none';
+      // Show video
+      const video = document.getElementById('videoElement');
+      video.style.display = 'block';
+      video.play(); // start video immediately
+    }
 
-        function videoEnded() {
-            document.getElementById('videoElement').style.display = 'none';
-            document.getElementById('finalMessage').style.display = 'block';
-            document.getElementById('replayButton').style.display = 'block';
-        }
+    function noClicked() {
+      // Hide confirmation
+      document.getElementById('confirmation').style.display = 'none';
+      // Show fallback image
+      document.getElementById('noImage').style.display = 'block';
+    }
 
-        function replay() {
-            document.getElementById('videoElement').style.display = 'block';
-            document.getElementById('finalMessage').style.display = 'none';
-            document.getElementById('replayButton').style.display = 'none';
-            document.getElementById('videoElement').play();
-        }
-    </script>
+    function videoEnded() {
+      // Hide the video
+      document.getElementById('videoElement').style.display = 'none';
+      // Show final message and replay button
+      document.getElementById('finalMessage').style.display = 'block';
+      document.getElementById('replayButton').style.display = 'inline-block';
+    }
+
+    function replay() {
+      // Hide final message and replay button
+      document.getElementById('finalMessage').style.display = 'none';
+      document.getElementById('replayButton').style.display = 'none';
+      // Show video and play again
+      const video = document.getElementById('videoElement');
+      video.style.display = 'block';
+      video.currentTime = 0;
+      video.play();
+    }
+  </script>
 </body>
 </html>
